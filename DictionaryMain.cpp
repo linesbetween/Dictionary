@@ -16,16 +16,18 @@ using std::cin;
 char menu1();
 char menu2(char);
 void displayDictPart(char dictType, char wordType[]);
+void displaySample(vector<Entry> dict); // display German to English noun;
+void displayDictAll(vector<Entry> dict);
 
 int main(){
 
 
-	vector<Entry> dictGeEn, dictFrEn, dictLaEn, dictHeEn;
+	vector<Entry> temp, dictGeEn, dictFrEn, dictLaEn, dictHeEn;
 
-	/* test loading
+
 	if (txt2Bin("dic1.txt", "dic1.dat"))
 		loadDictionary("dic1.dat", temp);
-	*/
+	
 
 	char choice1, choice2;
 	char type[TYPE_SIZE], all[] = {'a','l', 'l'};
@@ -62,9 +64,10 @@ int main(){
 			exit(0);
 		}
 		else{ 
+			displaySample(temp);
 			choice2 = menu2(choice1);
 			switch (choice1){
-			
+				
 			}
 		}
 	}
@@ -151,4 +154,22 @@ char menu2(char choice1){
 
 void displayDictPart(char dictType, char wordType[]){
 
+}
+
+void displaySample(vector<Entry> dict){
+	
+	vector<Entry> temp;
+
+	for (auto iter = std::cbegin(dict); iter != std::cend(dict); ++iter){// walk through dict vector
+		if (strcmp(iter->getEntry().type, "noun")==0){ //if type = noun
+			//write to temp vector
+			temp.emplace_back(*iter);
+			cout << iter->getEntry().prefix << " " << iter->getEntry().word << " " << iter->getEntry().type
+				<< " " << iter->getEntry().prefix << " " << iter->getEntry().meaning <<endl;
+		}
+
+		//sort temp
+
+		//print temp
+	}
 }

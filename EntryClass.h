@@ -31,6 +31,10 @@ public:
 	}
 	*/
 
+	EntryStruct getEntry() const{
+		return data;
+	}
+
 	// Less-than operator
 	bool operator< (const Entry& en) const
 	{

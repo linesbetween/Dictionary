@@ -1,5 +1,5 @@
-#ifndef ENTRY_H
-#define ENTRY_H
+#ifndef ENTRYSTRUCT_H
+#define ENTRYSTRUCT_H
 
 const int PRE_SIZE = 4, WORD_SIZE = 20, MEANING_SIZE = 20, TYPE_SIZE = 20;
 
