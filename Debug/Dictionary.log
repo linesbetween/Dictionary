@@ -1,14 +1,15 @@
-﻿Build started 2/27/2016 8:03:24 AM.
+﻿Build started 2/27/2016 11:11:24 AM.
      1>Project "D:\data\course\SP2016\CIT284-AdvC++\Dictionary\Dictionary.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt DictionaryMain.cpp
          DictionaryMain.cpp
      1>d:\data\course\sp2016\cit284-advc++\dictionary\txt2bin.h(21): warning C4101: 'end' : unreferenced local variable
      1>d:\data\course\sp2016\cit284-advc++\dictionary\entryclass.h(3): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-     1>d:\data\course\sp2016\cit284-advc++\dictionary\dictionarymain.cpp(39): error C2143: syntax error : missing ';' before '}'
-     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppCommon.targets(341,5): error MSB6006: "CL.exe" exited with code 2.
-     1>Done Building Project "D:\data\course\SP2016\CIT284-AdvC++\Dictionary\Dictionary.vcxproj" (Build target(s)) -- FAILED.
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\data\course\SP2016\CIT284-AdvC++\Dictionary\Debug\Dictionary.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\data\course\SP2016\CIT284-AdvC++\Dictionary\Debug\Dictionary.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\data\course\SP2016\CIT284-AdvC++\Dictionary\Debug\Dictionary.lib" /MACHINE:X86 Debug\DictionaryMain.obj
+         Dictionary.vcxproj -> D:\data\course\SP2016\CIT284-AdvC++\Dictionary\Debug\Dictionary.exe
+     1>Done Building Project "D:\data\course\SP2016\CIT284-AdvC++\Dictionary\Dictionary.vcxproj" (Build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:04.60
+Time Elapsed 00:00:01.94
