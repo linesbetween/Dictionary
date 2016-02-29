@@ -14,7 +14,7 @@ using namespace std;
 
 bool txt2Bin (string inName, string outName){
 
-	char prefix[PRE_SIZE];
+	char prefix[PRE_SIZE] = {'\0'};
 	char word[WORD_SIZE];
 	char meaning[MEANING_SIZE];
 	char type[TYPE_SIZE];
@@ -37,7 +37,10 @@ bool txt2Bin (string inName, string outName){
 		inFile.getline(type, TYPE_SIZE, '$');
 		inFile.ignore(1000, '\n');
 
-		strncpy_s(entryStruct.prefix, prefix, PRE_SIZE);
+		if (prefix[0] == '\0')
+			entryStruct.prefix[0] = '\0';
+		else
+			strncpy_s(entryStruct.prefix, prefix, PRE_SIZE);
 		//entryStruct.prefix[PRE_SIZE -1] = '\0';
 		strncpy_s(entryStruct.word, word, WORD_SIZE);
 		//entryStruct.word[WORD_SIZE -1] = '\0';

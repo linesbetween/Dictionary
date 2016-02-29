@@ -18,6 +18,7 @@ using std::cin;
 
 int menu1();
 int menu2(int);
+bool sortByWord(const Entry &lhs, const Entry &rhs);
 void displayDictPart(int dictCode, char wordType[TYPE_SIZE]);
 void displaySample(vector<Entry> dict); // display German to English noun;
 void displayDictAll(int dictCode); //
@@ -60,11 +61,18 @@ int main(){
 			_getch();
 			continue;
 		}
-		else if (choice1 == 10){
-			//search TODO
+		else if (choice1 == 10){//search
 			cout << "Please enter a word for search \n";
-			cin >> key;
-			searchWord(key, temp); //TEST
+			string key1;
+			string key2 = "\0";
+			char keyChar[20];
+			cin >> key1;
+			getline(cin,key2);
+			cout << "key1:" << key1 << ", key2:" << key2<<endl;
+			if (key2 == "\0") key2 = key1;
+			else key2.erase(0, 1);
+			strcpy_s(keyChar, key2.c_str());
+			searchWord(keyChar, temp);
 		}
 		else if (choice1 == 11){ //quit
 			system("cls");
@@ -192,6 +200,35 @@ int menu2(int choice1){
 
 }
 
+bool sortByWord(const Entry &lhs, const Entry &rhs) { 
+	if (strcmp(lhs.getEntry().word, rhs.getEntry().word) < 0)
+		return true;
+	else
+		return false;
+}
+
+vector<Entry> bubbleSort(const vector<Entry> &dict){
+	auto iter = dict.begin();
+	vector<Entry> sortedDict(dict.size());
+	copy(dict.begin(), dict.end(), sortedDict.begin());
+	for (Entry entry: sortedDict)
+	{
+		for (Entry entry2: sortedDict)
+		{
+			if (strcmp(iter->getEntry().word,(iter+1)->getEntry().word)>0)
+			{
+				char temp[WORD_SIZE];
+				strcpy_s(temp, (iter + 1)->getEntry().word);
+				copy(iter->getEntry().word[0], iter->getEntry().word[WORD_SIZE], (iter + 1)->getEntry().word[0]);
+				copy(temp[0], temp[WORD_SIZE], (iter + 1)->getEntry().word[0]);
+			}
+			++iter;
+		}
+	}
+	
+	return sortedDict;
+}
+
 void displayDictPart(int dictType, char wordType[]){
 	cout << "you selected dictionary " << dictType << "word type: " << wordType;
 	_getch();
@@ -225,9 +262,10 @@ void displaySample(vector<Entry> dict){
 	}
 
 
-	std::sort(temp.begin(), temp.end());
-	for (Entry entry : temp){
-		if (entry.getEntry().prefix == " "){
+	//std::sort(temp.begin(), temp.end(), sortByWord);	
+
+	for (Entry entry : bubbleSort(temp)){
+		if (entry.getEntry().prefix[0] == '\0'){
 			cout << setw(20) << entry.getEntry().word << " " << setw(20) << entry.getEntry().type << " "
 				<< setw(20) << entry.getEntry().meaning << endl;
 		}
@@ -247,9 +285,9 @@ void displayDictAll(int dictCode){
 }
 
 void displayDictAll(vector<Entry> dict){
-	std::sort(dict.begin(), dict.end());
-	for (Entry entry : dict){
-		if (entry.getEntry().prefix == " "){
+	//std::sort(dict.begin(), dict.end(), sortByWord);
+	for (Entry entry : bubbleSort(dict)){
+		if (entry.getEntry().prefix[0] == '\0'){
 			cout << setw(20) << entry.getEntry().word << " " << setw(20) << entry.getEntry().type << " "
 				<< setw(20) << entry.getEntry().meaning << endl;
 		}
@@ -293,12 +331,14 @@ void searchWord(char word[WORD_SIZE], vector<Entry> dict){
 	*/
 	//linear search
 	bool found = false;
-	_Vector_iterator<_Vector_val<_Simple_types<Entry>>> iter = dict.begin(); //auto
-	while (!found){
-		if (iter->getEntry().word == word){
-			cout <<word<<" meaing is: "<< iter->getEntry().meaning << " \n.";
+	//auto iter = dict.begin();
+	//_Vector_iterator<_Vector_val<_Simple_types<Entry>>> iter = dict.begin(); //auto
+	for(Entry entry :dict){
+		if (strcmp(entry.getEntry().word, word) == 0){
+			cout << word << " meaing is: " << entry.getEntry().meaning << " \n.";
 			found = true;
 		}
+		continue;
 	}
 	
 	std::sort(dict.begin(), dict.end());
@@ -313,12 +353,12 @@ void searchWord(char word[WORD_SIZE], vector<Entry> dict){
 	while (begin <= end)
 	{
 		mid = end + (begin - end) / 2;// / size of (*begin)?
-		if (word == mid->getEntry().word)
+		if (!strcmp(word, mid->getEntry().word))
 		{
 			loc = mid;
 			flag = true;
 		}
-		else if (word< mid->getEntry().word)
+		else if (strcmp(word, mid->getEntry().word)<0)
 			end = mid - 1;
 		else
 			begin = mid + 1; //when key is > array[midpoint]

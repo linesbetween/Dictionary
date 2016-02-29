@@ -34,11 +34,13 @@ public:
 	EntryStruct getEntry() const{
 		return data;
 	}
+	
+	
 
 	// Less-than operator
 	bool operator< (const Entry& en) const
 	{
-		int result{ strcmp(data.word, en.data.word) };
+		int result{ strcmp(data.word, en.getEntry().word) };
 		return (result < 0 );
 	}
 
