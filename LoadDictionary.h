@@ -11,11 +11,12 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 
 void loadDictionary(string fileName, std::vector<Entry> &dic){
-
+	  
 	ifstream binFile;
 	EntryStruct buffer;
 
@@ -27,9 +28,15 @@ void loadDictionary(string fileName, std::vector<Entry> &dic){
 
 	while (!binFile.eof()){
 		binFile.read(reinterpret_cast<char *>(&buffer), sizeof(buffer));
-		//cout << buffer.prefix << " " << buffer.word << " " << buffer.type << " " << buffer.meaning << "\n";
+		cout << left;
+		cout << setw(4) << buffer.prefix  << setw(20) << buffer.word 
+			<< setw(20) << buffer.meaning  << setw(20) << buffer.type << "\n";
 		dic.emplace_back(Entry(buffer));
-		cout << "one record read into vector\n";
+		auto it = dic.end() - 1;
+		cout
+			<< setw(4) << it->getEntry().prefix << setw(20) << it->getEntry().word
+			<< setw(20) << it->getEntry().meaning << setw(20) << it->getEntry().type
+			<< "Added to vecter \n";
 	}
 
 

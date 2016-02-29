@@ -12,13 +12,13 @@ public:
 	Entry(EntryStruct en){
 
 		strncpy_s(data.meaning, en.meaning, MEANING_SIZE);
-		data.meaning[MEANING_SIZE - 1] = '\0';
+		//data.meaning[MEANING_SIZE - 1] = '\0';
 		strncpy_s(data.prefix, en.prefix, PRE_SIZE);
-		data.meaning[PRE_SIZE - 1] = '\0';
+		//data.prefix[PRE_SIZE - 1] = '\0';
 		strncpy_s(data.type, en.type, TYPE_SIZE);
-		data.meaning[TYPE_SIZE - 1] = '\0';
+		//data.type[TYPE_SIZE - 1] = '\0';
 		strncpy_s(data.word, en.word, WORD_SIZE);
-		data.meaning[WORD_SIZE - 1] = '\0';
+		//data.word[WORD_SIZE - 1] = '\0';
 		
 	}
 

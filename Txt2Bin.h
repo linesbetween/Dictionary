@@ -38,13 +38,13 @@ bool txt2Bin (string inName, string outName){
 		inFile.ignore(1000, '\n');
 
 		strncpy_s(entryStruct.prefix, prefix, PRE_SIZE);
-		entryStruct.prefix[PRE_SIZE - 1] = '\0';
+		//entryStruct.prefix[PRE_SIZE -1] = '\0';
 		strncpy_s(entryStruct.word, word, WORD_SIZE);
-		entryStruct.word[WORD_SIZE - 1] = '\0';
+		//entryStruct.word[WORD_SIZE -1] = '\0';
 		strncpy_s(entryStruct.meaning, meaning, MEANING_SIZE);
-		entryStruct.meaning[MEANING_SIZE - 1] = '\0';
+		//entryStruct.meaning[MEANING_SIZE -1] = '\0';
 		strncpy_s(entryStruct.type, type, TYPE_SIZE);
-		entryStruct.type[TYPE_SIZE - 1] = '\0';
+		//entryStruct.type[TYPE_SIZE -1 ] = '\0';
 
 		outFile.write(reinterpret_cast<char *> (&entryStruct), sizeof(entryStruct));
 
