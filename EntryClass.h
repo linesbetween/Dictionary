@@ -9,6 +9,8 @@ private:
 
 public:
 
+	Entry(){ ; }
+
 	Entry(EntryStruct en){
 
 		strncpy_s(data.meaning, en.meaning, MEANING_SIZE);

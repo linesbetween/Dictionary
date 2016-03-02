@@ -12,6 +12,7 @@ using std::cin;
 #include <conio.h>
 #include <cstring>
 #include <iomanip>
+#include <ctype.h>
 
 #include "Txt2Bin.h"
 #include "LoadDictionary.h"
@@ -200,27 +201,40 @@ int menu2(int choice1){
 
 }
 
-bool sortByWord(const Entry &lhs, const Entry &rhs) { 
-	if (strcmp(lhs.getEntry().word, rhs.getEntry().word) < 0)
+bool sortByWord(const Entry &lhs, const Entry &rhs) {
+	char wordL[WORD_SIZE]; char wordR[WORD_SIZE];
+
+	for (int i = 0; i < WORD_SIZE; ++i){
+		wordL[i] = tolower(lhs.getEntry().word[i]);
+		wordR[i] = tolower(rhs.getEntry().word[i]);
+	}
+	if (strcmp(wordL, wordR) < 0)
 		return true;
 	else
 		return false;
 }
 
+
 vector<Entry> bubbleSort(const vector<Entry> &dict){
-	auto iter = dict.begin();
+	
 	vector<Entry> sortedDict(dict.size());
 	copy(dict.begin(), dict.end(), sortedDict.begin());
 	for (Entry entry: sortedDict)
 	{
-		for (Entry entry2: sortedDict)
+		for (auto iter = dict.begin(); iter < dict.end(); ++iter)
 		{
 			if (strcmp(iter->getEntry().word,(iter+1)->getEntry().word)>0)
 			{
 				char temp[WORD_SIZE];
 				strcpy_s(temp, (iter + 1)->getEntry().word);
-				copy(iter->getEntry().word[0], iter->getEntry().word[WORD_SIZE], (iter + 1)->getEntry().word[0]);
-				copy(temp[0], temp[WORD_SIZE], (iter + 1)->getEntry().word[0]);
+				for (int i = 0; i < WORD_SIZE; ++i){
+					(iter + 1)->getEntry().word[i] = iter->getEntry().word[i];
+					iter->getEntry().word[i] = temp[i];
+				}
+				//strncpy_s((iter + 1)->getEntry().word, iter->getEntry().word, WORD_SIZE);
+				//strncpy_s(iter->getEntry().word,temp, WORD_SIZE);
+				//copy(iter->getEntry().word[0], iter->getEntry().word[WORD_SIZE], (iter + 1)->getEntry().word[0]);
+				//copy(temp[0], temp[WORD_SIZE], iter ->getEntry().word[0]);
 			}
 			++iter;
 		}
@@ -228,6 +242,7 @@ vector<Entry> bubbleSort(const vector<Entry> &dict){
 	
 	return sortedDict;
 }
+
 
 void displayDictPart(int dictType, char wordType[]){
 	cout << "you selected dictionary " << dictType << "word type: " << wordType;
@@ -262,11 +277,11 @@ void displaySample(vector<Entry> dict){
 	}
 
 
-	//std::sort(temp.begin(), temp.end(), sortByWord);	
+	std::sort(temp.begin(), temp.end(), sortByWord);	
 
-	for (Entry entry : bubbleSort(temp)){
+	for (Entry entry : temp){
 		if (entry.getEntry().prefix[0] == '\0'){
-			cout << setw(20) << entry.getEntry().word << " " << setw(20) << entry.getEntry().type << " "
+			cout << setw(25) << entry.getEntry().word << " " << setw(20) << entry.getEntry().type << " "
 				<< setw(20) << entry.getEntry().meaning << endl;
 		}
 		else{
@@ -285,10 +300,10 @@ void displayDictAll(int dictCode){
 }
 
 void displayDictAll(vector<Entry> dict){
-	//std::sort(dict.begin(), dict.end(), sortByWord);
-	for (Entry entry : bubbleSort(dict)){
+	std::sort(dict.begin(), dict.end(), sortByWord);
+	for (Entry entry : dict){
 		if (entry.getEntry().prefix[0] == '\0'){
-			cout << setw(20) << entry.getEntry().word << " " << setw(20) << entry.getEntry().type << " "
+			cout << setw(25) << entry.getEntry().word << " " << setw(20) << entry.getEntry().type << " "
 				<< setw(20) << entry.getEntry().meaning << endl;
 		}
 		else{
